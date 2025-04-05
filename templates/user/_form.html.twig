@@ -1,10 +1,19 @@
 <div class="container mt-4">
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-        <div class="form-group">
-            {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+    {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+
+        {% for field in form %}
+            <div class="mb-3">
+                {{ form_label(field, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                {{ form_widget(field, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(field) }}
+            </div>
+        {% endfor %}
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary px-4 py-2">
+                {{ button_label|default('Save') }}
+            </button>
         </div>
-        <div class="text-center">
-            <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
-        </div>
+
     {{ form_end(form) }}
 </div>

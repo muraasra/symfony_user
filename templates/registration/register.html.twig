@@ -1,23 +1,81 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseL.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 800px; width: 100%;">
+        <div class="card-body">
+            <h1 class="h4 text-center mb-4">Créer un compte</h1>
 
-    <h1>Register</h1>
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger">{{ flash_error }}</div>
+            {% endfor %}
 
-    {{ form_errors(registrationForm) }}
+            {{ form_start(registrationForm, {'attr': {'enctype': 'multipart/form-data'}}) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(registrationForm.email) }}
+                </div>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                <div class="mb-3 col-md-6">
+                    {{ form_label(registrationForm.password, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.password, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(registrationForm.password) }}
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    {{ form_label(registrationForm.firstname, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.firstname, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(registrationForm.firstname) }}
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    {{ form_label(registrationForm.phonenumber, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.phonenumber, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(registrationForm.phonenumber) }}
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    {{ form_label(registrationForm.address, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.address, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(registrationForm.address) }}
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    {{ form_label(registrationForm.profilpicture, 'Photo de profil (PNG/JPG)', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(registrationForm.profilpicture, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(registrationForm.profilpicture) }}
+                </div>
+
+                <div class="mb-3 col-12">
+                    {{ form_label(registrationForm.roles, 'Rôle(s)', {'label_attr': {'class': 'form-label d-block'}}) }}
+                    <div class="d-flex gap-4">
+                        {{ form_widget(registrationForm.roles) }}
+                    </div>
+                    {{ form_errors(registrationForm.roles) }}
+                </div>
+
+                <div class="mb-3 col-12 form-check">
+                    {{ form_widget(registrationForm.isVerified, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(registrationForm.isVerified, 'Marquer comme vérifié', {'label_attr': {'class': 'form-check-label'}}) }}
+                    {{ form_errors(registrationForm.isVerified) }}
+                </div>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-success">S'inscrire</button>
+            </div>
+
+            {{ form_end(registrationForm) }}
+
+            <div class="text-center mt-3">
+                <small>Déjà inscrit ? <a href="{{ path('app_login') }}">Se connecter</a></small>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

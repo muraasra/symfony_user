@@ -55,9 +55,9 @@ class UserType extends AbstractType
                 ]),
             ],
         ])
-        ->add('isVerified', CheckboxType::class, [
-            'required' => false,
-        ])
+        // ->add('isVerified', CheckboxType::class, [
+        //     'required' => false,
+        // ])
         ->add('firstname', TextType::class, [
             'constraints' => [
                 new NotBlank([
